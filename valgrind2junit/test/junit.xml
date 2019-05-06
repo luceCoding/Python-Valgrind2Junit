@@ -1,0 +1,14 @@
+<?xml version="1.0" ?><testsuite errors="2" failures="0" hostname="min-dhcp33-251-158.bbn.com" name="valgrind" tests="2" time="10" timestamp="2011-01-17T13:15:03.411849"><testcase classname="valgrind" name="0x0" time="0"><failure message="Conditional jump or move depends on uninitialised value(s)" type="UninitCondition"><![CDATA[/opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_ports_devel_valgrind/work/valgrind-3.6.0/memcheck/mc_replace_strmem.c:446 memchr
+/usr/lib/libSystem.B.dylib __sfvwrite
+/usr/lib/libSystem.B.dylib fwrite
+/usr/lib/libstdc++.6.0.9.dylib void std::__ostream_write<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+/usr/lib/libstdc++.6.0.9.dylib std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+/usr/lib/libstdc++.6.0.9.dylib std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char)
+./a.out main]]></failure></testcase><testcase classname="valgrind" name="0x1" time="0"><failure message="Syscall param write(buf) points to uninitialised byte(s)" type="SyscallParam"><![CDATA[/usr/lib/libSystem.B.dylib write$NOCANCEL
+/usr/lib/libSystem.B.dylib _swrite
+/usr/lib/libSystem.B.dylib __sflush
+/usr/lib/libSystem.B.dylib __swbuf
+/usr/lib/libSystem.B.dylib putc
+/usr/lib/libstdc++.6.0.9.dylib std::ostream::put(char)
+/usr/lib/libstdc++.6.0.9.dylib std::basic_ostream<char, std::char_traits<char> >& std::endl<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&)
+./a.out main]]></failure></testcase></testsuite>
