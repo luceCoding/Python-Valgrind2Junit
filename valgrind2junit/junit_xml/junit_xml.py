@@ -1,34 +1,29 @@
 from lxml import etree as ET
 
-class JUnitXMLGenerator(object):
-    def __init__(self):
-        self.testsuite = None
-
-    @staticmethod
-    def create_testsuite(self, **kwargs):
-        return ET.Element('testsuite', attrib=kwargs)
-
-    @staticmethod
-    def create_testcase(self, **kwargs):
-        ET.SubElement(self.testsuite, 'testcase', attrib=kwargs)
-        return True
-
-    def add_testsuite(self, **kwargs):
+class JUnitXML(object):
+    def __init__(self, **kwargs):
         self.testsuite = ET.Element('testsuite', attrib=kwargs)
-        return self.testsuite
 
     def add_testcase(self, **kwargs):
         if self.testsuite is None:
-            return None
+            return False
         ET.SubElement(self.testsuite, 'testcase', attrib=kwargs)
-        return self.testsuite
+        return True
 
     def output_xml(self, xml_path):
         if self.testsuite is None:
             return False
         tree = ET.ElementTree(self.testsuite)
-        tree.write(xml_path,
-                   pretty_print=True,
-                   xml_declaration=True,
-                   encoding='UTF-8')
+        tree.write(
+            xml_path,
+            pretty_print=True,
+            xml_declaration=True
+        )
+        return True
+
+    def set_testsuite_attr(self, **kwargs):
+        if self.testsuite is None:
+            return False
+        for key, val in kwargs.items():
+            self.testsuite.set(key, val)
         return True
