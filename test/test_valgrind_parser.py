@@ -1,11 +1,11 @@
 import os
 import unittest
-from parser.valgrind_parser import ValgrindParser
+from valgrind.valgrind_parser import ValgrindParser
 import pytest
 
 class test_valgrind_parser(unittest.TestCase):
     def setUp(self):
-        self.valgrind_test_file = os.path.join(os.path.dirname(__file__), 'valgrind-test.xml')
+        self.valgrind_test_file = os.path.join(os.path.dirname(__file__), 'data/valgrind-test.xml')
 
     def tearDown(self):
         pass
@@ -18,5 +18,5 @@ class test_valgrind_parser(unittest.TestCase):
             count += 1
             assert error is not None
         assert count == 2
-        with pytest.raises(Exception):
+        with pytest.raises(StopIteration):
             next(error_generator)

@@ -1,4 +1,3 @@
-# from xml.etree import ElementTree as ET
 import hashlib
 import base64
 
@@ -21,12 +20,12 @@ class ValgrindError(object):
             return 'valgrind'
         return classname
 
-    def get_testcase_name(self, testcase=None):
+    def get_testcase_name(self, seed=None):
         if self.xml_error is None:
             return ''
-        if testcase is None:
+        if seed is None:
             return self.xml_error.find('unique').text
-        hash_str = self.get_hash(testcase)
+        hash_str = self.get_hash(seed)
         return ' '.join([self.get_failure_type(), hash_str])
 
     def get_failure_type(self): # kind tag in valgrind
@@ -57,13 +56,14 @@ class ValgrindError(object):
     def remove_tags(self, tag_to_remove):
         if self.xml_error is None:
             return False
-        tags_to_remove = list()
-        for tag in self.xml_error.iter(tag_to_remove):
-            tags_to_remove.append(tag)
-        for tag in tags_to_remove:
-            parent = tag.getparent()
-            parent.remove(tag)
-        return True if len(tags_to_remove) else False
+        parent_child = list()
+        for parent in self.xml_error.getiterator():
+            for child in parent:
+                if child.tag == tag_to_remove:
+                    parent_child.append((parent, child))
+        for parent, child in parent_child:
+            parent.remove(child)
+        return True if len(parent_child) else False
 
     def get_hash(self, input=''):
         self.remove_tags('ip')

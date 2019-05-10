@@ -1,5 +1,5 @@
-from lxml import etree as ET
-from parser.valgrind_error import ValgrindError
+from xml.etree import ElementTree as ET
+from valgrind.valgrind_error import ValgrindError
 
 class ValgrindParser(object):
 
