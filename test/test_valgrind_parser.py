@@ -5,7 +5,7 @@ import pytest
 
 class test_valgrind_parser(unittest.TestCase):
     def setUp(self):
-        self.valgrind_test_file = os.path.join(os.path.dirname(__file__), 'data/valgrind-test.xml')
+        self.valgrind_test_file = os.path.join(os.path.dirname(__file__), 'sample_data/valgrind-test.xml')
 
     def tearDown(self):
         pass
