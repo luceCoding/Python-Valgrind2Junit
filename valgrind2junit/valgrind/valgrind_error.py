@@ -33,25 +33,33 @@ class ValgrindError(object):
             return self.failure_type
         if self.xml_error is None:
             return ''
-        self.failure_type = self.xml_error.find('kind').text
-        return self.failure_type
+        kind_tag = self.xml_error.find('kind')
+        if kind_tag is not None:
+            self.failure_type = kind_tag.text
+            return self.failure_type
+        return ''
 
     def get_failure_message(self): # what tag in valgrind
         if self.failure_message is not None:
             return self.failure_message
         if self.xml_error is None:
             return ''
-        self.failure_message = self.xml_error.find('what').text
-        return self.failure_message
+        what_tag = self.xml_error.find('what')
+        if what_tag is not None:
+            self.failure_type = what_tag.text
+            return self.failure_type
+        return ''
 
     def get_failure_details(self): # stack tag in valgrind
         if self.stack is not None:
             return self.stack
         if self.xml_error is None:
             return ''
-        stack = self.xml_error.find('stack')
-        self.stack = ' '.join(x.text for x in stack.iter())
-        return self.stack
+        stack_tag = self.xml_error.find('stack')
+        if stack_tag is not None:
+            self.stack = ' '.join(x.text for x in stack_tag.iter())
+            return self.stack
+        return ''
 
     def remove_tags(self, tag_to_remove):
         if self.xml_error is None:
